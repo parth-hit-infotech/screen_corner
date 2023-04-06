@@ -20,7 +20,7 @@ class ScreenCornerPlugin : FlutterPlugin, MethodCallHandler, FlutterActivity() {
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        if (call.method == "getScreenCorners") {
+        if (call.method == "getCorners") {
             val borderRadius = getScreenCorners()
             if (borderRadius != null) {
                 result.success(borderRadius)
