@@ -1,21 +1,27 @@
-import 'screen_corner_platform_interface.dart';
+import 'package:flutter/services.dart';
+import 'package:screen_corner/corner.dart';
 
 class ScreenCorner {
-  Future<String?> getPlatformVersion() {
-    return ScreenCornerPlatform.instance.getPlatformVersion();
-  }
+  static final ScreenCorner instance = ScreenCorner._();
 
-  static final ScreenCorner _instance = ScreenCorner._();
-
-  factory ScreenCorner() => _instance;
+  factory ScreenCorner() => instance;
 
   ScreenCorner._();
 
-  static Future<CornerValue?> initScreenCorners() {
-    return ScreenCornersPlatform.instance.initScreenCorners();
+  final methodChannel = const MethodChannel('hit:screen_corner');
+  var _value = Corner(value: 0.0);
+
+  Future<Corner?> fetchCorners() async {
+    try {
+      final value = await methodChannel.invokeMethod('getCorners');
+      _value = Corner(value: double.tryParse(value?.toString() ?? '0.0') ?? 0.0);
+      return _value;
+    } catch (e) {
+      return _value;
+    }
   }
 
-  static CornerValue get corner => ScreenCornersPlatform.instance.getValue();
+  Corner get corner => _value;
 
-  static double get cornerValue => corner.value;
+  double get cornerValue => corner.value;
 }
