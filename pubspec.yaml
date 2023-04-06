@@ -1,0 +1,28 @@
+name: screen_corner
+description: Get screen corner radius of device, used for uniform UI in app.
+version: 0.0.1
+repository: https://github.com/parth-hit-infotech/screen_corners
+homepage:
+
+environment:
+  sdk: '>=2.19.3 <3.0.0'
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.hit.screen.corners.screen_corner
+        pluginClass: ScreenCornerPlugin
+      ios:
+        pluginClass: ScreenCornerPlugin
